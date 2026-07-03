@@ -48,13 +48,20 @@ html, body {
 
 .content {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   padding: 1.5rem;
   overflow-y: auto;
+}
+
+.content::before,
+.content::after {
+  content: "";
+  margin: auto 0;
 }
 
 h1 {
@@ -170,14 +177,34 @@ select {
 
 .quiz-body {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 1.5rem;
   text-align: center;
   overflow-y: auto;
   gap: 1.5rem;
+}
+
+.quiz-body::before,
+.quiz-body::after {
+  content: "";
+  margin: auto 0;
+}
+
+@media (max-height: 500px) {
+  #question-text {
+    font-size: clamp(1.1rem, 4vw, 1.8rem);
+  }
+  .quiz-body {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .option-btn {
+    padding: 0.6rem 1rem;
+  }
 }
 
 #question-text {
