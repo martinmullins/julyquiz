@@ -29,16 +29,7 @@
       </label>
       <input type="range" id="target-slider" min="1" max="24" value="15">
 
-      <label class="setup-label" for="voice-select">Narrator voice</label>
-      <select id="voice-select"></select>
-
-      <label class="setup-label" for="pitch-slider">Cowboy drawl (pitch): <span id="pitch-value">0.8</span></label>
-      <input type="range" id="pitch-slider" min="0.5" max="1.5" step="0.05" value="0.8">
-
-      <label class="setup-label" for="rate-slider">Speaking speed: <span id="rate-value">0.9</span></label>
-      <input type="range" id="rate-slider" min="0.6" max="1.3" step="0.05" value="0.9">
-
-      <button id="btn-test-voice" class="btn btn-secondary">🔊 Test Voice</button>
+      <button id="btn-test-voice" class="btn btn-secondary">🔊 Hear the Narrator</button>
     </div>
 
     <button id="btn-start" class="btn btn-primary btn-large">Start the Showdown</button>
@@ -79,6 +70,8 @@
     <button id="btn-restart" class="btn btn-primary btn-large">Play Again</button>
   </div>
 </section>
+
+<audio id="narrator-audio" preload="none"></audio>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
