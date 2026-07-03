@@ -34,6 +34,64 @@ html, body {
   background-size: 300px 300px;
 }
 
+.eagle-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.eagle-transition.active {
+  animation: eagleFlash 1.1s ease;
+}
+
+.eagle-emoji {
+  font-size: clamp(4rem, 20vw, 9rem);
+  filter: drop-shadow(0 0 18px rgba(255,209,102,0.6));
+}
+
+.eagle-transition.active .eagle-emoji {
+  animation: eagleFly 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eagle-screech {
+  position: absolute;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 5vw, 2.6rem);
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 14px rgba(255,209,102,0.7);
+  opacity: 0;
+}
+
+.eagle-transition.active .eagle-screech {
+  animation: screechPop 1.1s ease;
+}
+
+@keyframes eagleFly {
+  0%   { transform: translateX(-130vw) translateY(10px) rotate(-6deg) scale(0.75); opacity: 0; }
+  12%  { opacity: 1; }
+  50%  { transform: translateX(0) translateY(-16px) rotate(4deg) scale(1.2); }
+  88%  { opacity: 1; }
+  100% { transform: translateX(130vw) translateY(10px) rotate(6deg) scale(0.75); opacity: 0; }
+}
+
+@keyframes eagleFlash {
+  0%, 100% { background: transparent; }
+  45%, 55% { background: radial-gradient(circle, rgba(255,255,255,0.18), rgba(178,34,52,0.3)); }
+}
+
+@keyframes screechPop {
+  0%, 35%  { opacity: 0; transform: scale(0.8); }
+  50%      { opacity: 1; transform: scale(1.05); }
+  65%      { opacity: 1; transform: scale(1); }
+  85%, 100% { opacity: 0; transform: scale(0.95); }
+}
+
 .screen {
   position: relative;
   z-index: 1;
