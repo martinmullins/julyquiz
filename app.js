@@ -212,14 +212,12 @@
       btn.disabled = false;
     });
 
-    const optionsSpeech = q.options.map((o, i) => `${String.fromCharCode(65 + i)}: ${o}`).join(". ");
-    speak(`Question ${state.idx + 1}. ${q.question} ... ${optionsSpeech}`);
+    speak(q.narration || q.question);
   }
 
   replayBtn.addEventListener("click", () => {
     const q = currentQuestion();
-    const optionsSpeech = q.options.map((o, i) => `${String.fromCharCode(65 + i)}: ${o}`).join(". ");
-    speak(`${q.question} ... ${optionsSpeech}`);
+    speak(q.narration || q.question);
   });
 
   optionButtons.forEach((btn) => {
