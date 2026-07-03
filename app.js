@@ -1,15 +1,22 @@
 (function () {
   "use strict";
 
-  const TOTAL = QUIZ_QUESTIONS.length;
-
   const state = {
+    volume: 1,
     order: [],
     idx: 0,
     correctCount: 0,
     target: 15,
     answered: false
   };
+
+  function activeQuestions() {
+    return QUIZ_VOLUMES[state.volume];
+  }
+
+  function totalCount() {
+    return activeQuestions().length;
+  }
 
   // ---------- Screen helpers ----------
   const screens = {
@@ -27,22 +34,36 @@
   const targetSlider = document.getElementById("target-slider");
   const targetValue = document.getElementById("target-value");
   const totalValue = document.getElementById("total-value");
+  const volumeButtons = Array.from(document.querySelectorAll(".volume-btn"));
 
-  totalValue.textContent = TOTAL;
-  targetSlider.max = TOTAL;
-  targetSlider.value = Math.round(TOTAL * 0.75); // default ~14/18
-  targetValue.textContent = targetSlider.value;
+  function syncTargetSliderToVolume() {
+    const total = totalCount();
+    totalValue.textContent = total;
+    targetSlider.max = total;
+    targetSlider.value = Math.round(total * 0.75);
+    targetValue.textContent = targetSlider.value;
+  }
+
+  syncTargetSliderToVolume();
 
   targetSlider.addEventListener("input", () => {
     targetValue.textContent = targetSlider.value;
   });
 
+  volumeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.volume = parseInt(btn.dataset.volume, 10);
+      volumeButtons.forEach((b) => b.classList.toggle("active", b === btn));
+      syncTargetSliderToVolume();
+    });
+  });
+
   // ---------- Narrator audio ----------
-  // Pre-recorded lines (audio/) rather than the browser's built-in TTS, which
-  // sounds robotic and can't do a real character voice. The same <audio>
-  // element is reused for every clip: once it's successfully played from a
-  // direct user tap (Start / Hear the Narrator), Safari keeps allowing .play()
-  // on it later even when triggered indirectly (e.g. after the eagle
+  // Pre-recorded lines (audio/v<N>/) rather than the browser's built-in TTS,
+  // which sounds robotic and can't do a real character voice. The same
+  // <audio> element is reused for every clip: once it's successfully played
+  // from a direct user tap (Start / Hear the Narrator), Safari keeps allowing
+  // .play() on it later even when triggered indirectly (e.g. after the eagle
   // transition's setTimeout), because the unlock is granted per-element.
   const narratorAudio = document.getElementById("narrator-audio");
 
@@ -57,11 +78,11 @@
   }
 
   function questionAudioFile(arrayIndex) {
-    return `q${String(arrayIndex + 1).padStart(2, "0")}.mp3`;
+    return `v${state.volume}/q${String(arrayIndex + 1).padStart(2, "0")}.mp3`;
   }
 
   document.getElementById("btn-test-voice").addEventListener("click", () => {
-    playClip("intro.mp3");
+    playClip(`v${state.volume}/intro.mp3`);
   });
 
   // ---------- Eagle transition ----------
@@ -120,7 +141,7 @@
   }
 
   document.getElementById("btn-start").addEventListener("click", () => {
-    state.order = shuffle(QUIZ_QUESTIONS.map((_, i) => i));
+    state.order = shuffle(activeQuestions().map((_, i) => i));
     state.idx = 0;
     state.correctCount = 0;
     state.target = parseInt(targetSlider.value, 10);
@@ -142,16 +163,16 @@
   }
 
   function currentQuestion() {
-    return QUIZ_QUESTIONS[currentArrayIndex()];
+    return activeQuestions()[currentArrayIndex()];
   }
 
   function renderQuestion() {
     const q = currentQuestion();
     state.answered = false;
 
-    progressEl.textContent = `Question ${state.idx + 1} / ${TOTAL}`;
+    progressEl.textContent = `Question ${state.idx + 1} / ${totalCount()}`;
     categoryEl.textContent = q.category;
-    scoreEl.textContent = `✅ ${state.correctCount}/${TOTAL} · need ${state.target}`;
+    scoreEl.textContent = `✅ ${state.correctCount}/${totalCount()} · need ${state.target}`;
     questionTextEl.textContent = q.question;
     factEl.classList.add("hidden");
     factEl.textContent = "";
@@ -186,7 +207,7 @@
 
       if (chosen === q.correct) {
         state.correctCount++;
-        scoreEl.textContent = `✅ ${state.correctCount}/${TOTAL} · need ${state.target}`;
+        scoreEl.textContent = `✅ ${state.correctCount}/${totalCount()} · need ${state.target}`;
       }
 
       factEl.textContent = q.fact;
@@ -212,7 +233,7 @@
     showScreen("results");
     const won = state.correctCount >= state.target;
     document.getElementById("results-headline").textContent = won ? "🎆 America Wins! 🎆" : "🦘 The Aussies Take This One 🦘";
-    document.getElementById("results-score").textContent = `You got ${state.correctCount} / ${TOTAL} correct (needed ${state.target})`;
+    document.getElementById("results-score").textContent = `You got ${state.correctCount} / ${totalCount()} correct (needed ${state.target})`;
     document.getElementById("results-message").textContent = won
       ? "Fireworks well earned, partner. Go grill something."
       : "Y'all better hit the books before next year's rematch.";

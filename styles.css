@@ -158,6 +158,29 @@ h1 {
 
 .setup-label:first-child { margin-top: 0; }
 
+.volume-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.volume-btn {
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.7rem;
+  cursor: pointer;
+}
+
+.volume-btn.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy-dark);
+}
+
 input[type="range"] {
   width: 100%;
   accent-color: var(--red-bright);
