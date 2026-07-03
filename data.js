@@ -1,172 +1,150 @@
 // Question bank for the 4th of July Quiz Showdown.
-// Each question: category, question text, 4 options, index of correct option, and a "fact" shown after reveal.
+// Each question: category, question text, 4 options, index of correct option,
+// a hand-written "narration" script (used to generate the pre-recorded audio
+// in audio/), and a "fact" shown after reveal.
 const QUIZ_QUESTIONS = [
   {
     category: "History",
-    question: "In what year did the Continental Congress adopt the Declaration of Independence?",
-    options: ["1774", "1776", "1781", "1789"],
-    correct: 1,
-    fact: "Adopted July 4, 1776 — though most delegates actually signed it weeks later, in August."
+    question: "Which of the original 13 colonies did NOT send delegates to the First Continental Congress in 1774?",
+    options: ["Georgia", "Rhode Island", "Delaware", "New Jersey"],
+    correct: 0,
+    narration: "Alright partners, here's a sneaky one to kick things off. Which of the original thirteen colonies did NOT send delegates to the First Continental Congress back in 1774? Was it A, Georgia... B, Rhode Island... C, Delaware... or D, New Jersey?",
+    fact: "Georgia stayed home hoping for British help against Native American raids — the only colony to skip the meeting that kicked off organized resistance."
   },
   {
     category: "History",
-    question: "Who is credited as the primary drafter of the Declaration of Independence?",
-    options: ["Benjamin Franklin", "Thomas Jefferson", "John Adams", "James Madison"],
+    question: "Who was the oldest signer of the Declaration of Independence, at 70 years old?",
+    options: ["Samuel Adams", "Benjamin Franklin", "John Hancock", "Roger Sherman"],
     correct: 1,
-    fact: "Jefferson wrote the first draft; Franklin and Adams edited it before Congress got its hands on it."
-  },
-  {
-    category: "History",
-    question: "Which city hosted the Continental Congress that adopted the Declaration of Independence?",
-    options: ["Boston", "Philadelphia", "New York City", "Williamsburg"],
-    correct: 1,
-    fact: "It happened in Pennsylvania's State House — now known as Independence Hall."
+    narration: "Every posse's got an elder statesman. Who was the oldest signer of the Declaration of Independence, clocking in at seventy years old? A, Samuel Adams... B, Benjamin Franklin... C, John Hancock... or D, Roger Sherman?",
+    fact: "The youngest signer, Edward Rutledge, was only 26."
   },
   {
     category: "Symbols",
-    question: "The Liberty Bell is world-famous for having a large what?",
-    options: ["Crack", "Dent", "Bullet hole", "Rust stain"],
-    correct: 0,
-    fact: "It cracked sometime in the 1840s and hasn't rung properly since."
+    question: "The Liberty Bell was originally cast in which country, before cracking on its first test ring and being recast in Philadelphia?",
+    options: ["France", "England", "Netherlands", "Spain"],
+    correct: 1,
+    narration: "Here's a fact most folks get wrong. The Liberty Bell was originally cast in which country, before it cracked on its very first test ring and had to be recast right here in Philadelphia? A, France... B, England... C, the Netherlands... or D, Spain?",
+    fact: "Cast at London's Whitechapel Foundry in 1752, cracked almost immediately, then melted down and recast by Pass and Stow."
   },
   {
     category: "Aussie Roast",
-    question: "In 1788, Britain's 'First Fleet' arrived Down Under carrying mostly what kind of settlers?",
-    options: ["Convicts", "Cowboys", "Pilgrims", "Astronauts"],
-    correct: 0,
-    fact: "That's right — while America was founding a republic, Australia was founding a prison with a beach view."
+    question: "Roughly how many convicts were aboard Britain's First Fleet when it landed in Australia in 1788?",
+    options: ["About 300", "About 730", "About 1,200", "About 2,000"],
+    correct: 1,
+    narration: "Time to mosey on down under for a spell. Roughly how many convicts were aboard Britain's First Fleet when it landed in Australia back in 1788? A, about three hundred... B, about seven hundred thirty... C, about twelve hundred... or D, about two thousand?",
+    fact: "Just over 1,400 people made the journey total, guarded by marines and officials."
   },
   {
     category: "Government",
-    question: "The current U.S. Constitution was ratified in which year?",
-    options: ["1776", "1783", "1788", "1812"],
-    correct: 2,
-    fact: "It replaced the shaky Articles of Confederation and took effect in 1789."
+    question: "Which Founding Father refused to sign the finished Constitution in 1787 because it lacked a Bill of Rights?",
+    options: ["George Mason", "James Madison", "Alexander Hamilton", "Gouverneur Morris"],
+    correct: 0,
+    narration: "Not every founding father was happy with the final product, partner. Which one refused to sign the finished Constitution in 1787 because it was missing a Bill of Rights? A, George Mason... B, James Madison... C, Alexander Hamilton... or D, Gouverneur Morris?",
+    fact: "One of only three delegates present at the convention's close who refused to sign."
   },
   {
     category: "Presidents",
-    question: "Which U.S. President served two non-consecutive terms, making him both the 22nd and 24th President?",
-    options: ["Andrew Jackson", "Grover Cleveland", "Martin Van Buren", "William Taft"],
+    question: "Which president had the shortest term in office, dying just 31 days after his inauguration?",
+    options: ["Zachary Taylor", "William Henry Harrison", "James Garfield", "Warren Harding"],
     correct: 1,
-    fact: "Grover Cleveland lost re-election, sat out four years, then won it back in 1892."
-  },
-  {
-    category: "Symbols",
-    question: "What do the 13 stripes on the American flag represent?",
-    options: ["The original 13 colonies", "13 major battles", "13 founding fathers", "13 amendments"],
-    correct: 0,
-    fact: "Betsy Ross gets the popular credit for the design, though historians still argue about it."
-  },
-  {
-    category: "Symbols",
-    question: "What do the 50 stars on the American flag represent?",
-    options: ["The 50 states", "The 50 signers of the Constitution", "50 years of independence", "The original colonies plus 37 territories"],
-    correct: 0,
-    fact: "The 50-star flag has been official since Hawaii joined the Union in 1960."
-  },
-  {
-    category: "Aussie Roast",
-    question: "America declared independence in 1776. What year did Australia actually become a fully self-governing federation?",
-    options: ["1788", "1850", "1901", "1986"],
-    correct: 2,
-    fact: "125 years after the cowboys sorted their independence, the kangaroos finally got the paperwork done."
+    narration: "Here's a rough one. Which president had the shortest term in office, passing away just thirty-one days after his inauguration? A, Zachary Taylor... B, William Henry Harrison... C, James Garfield... or D, Warren Harding?",
+    fact: "Legend blames pneumonia from his marathon inauguration speech in the cold."
   },
   {
     category: "Presidents",
-    question: "Which of these presidents is NOT carved into Mount Rushmore?",
+    question: "Which president is NOT one of the four faces carved into Mount Rushmore?",
     options: ["George Washington", "John Adams", "Abraham Lincoln", "Thomas Jefferson"],
     correct: 1,
-    fact: "The four faces are Washington, Jefferson, Theodore Roosevelt, and Lincoln — Adams never made the cut."
+    narration: "Time to squint up at some rock faces, partner. Which of these presidents is NOT one of the four carved into Mount Rushmore? A, George Washington... B, John Adams... C, Abraham Lincoln... or D, Thomas Jefferson?",
+    fact: "The four are Washington, Jefferson, Theodore Roosevelt, and Lincoln."
   },
   {
     category: "Fireworks",
-    question: "What classic explosive compound gives fireworks their loud 'bang'?",
-    options: ["Black powder", "Nitroglycerin", "TNT", "Napalm"],
-    correct: 0,
-    fact: "Black powder (gunpowder) has been the propellant and bang-maker in fireworks for centuries."
+    question: "What is the actual technical name for the tube that launches an aerial firework shell into the sky?",
+    options: ["A barrel", "A mortar", "A cannon", "A chute"],
+    correct: 1,
+    narration: "Let's talk shop about them fireworks. What's the actual technical name for the tube that launches an aerial firework shell up into the sky? A, a barrel... B, a mortar... C, a cannon... or D, a chute?",
+    fact: "Pyrotechnicians line up steel or HDPE mortars in racks to launch each shell."
+  },
+  {
+    category: "Aussie Roast",
+    question: "What year did 'Advance Australia Fair' officially replace 'God Save the Queen' as Australia's national anthem?",
+    options: ["1901", "1974", "1984", "2001"],
+    correct: 2,
+    narration: "Back down under one more time. What year did Advance Australia Fair officially replace God Save the Queen as Australia's national anthem? A, nineteen oh-one... B, nineteen seventy-four... C, nineteen eighty-four... or D, two thousand one?",
+    fact: "Used informally since 1974, but not proclaimed official for another decade."
   },
   {
     category: "Fireworks",
     question: "Which metal salt gives fireworks their brilliant red color?",
     options: ["Barium", "Sodium", "Strontium", "Copper"],
     correct: 2,
-    fact: "Strontium salts burn a deep red — the same chemistry used in road flares."
-  },
-  {
-    category: "Fireworks",
-    question: "Which metal produces the blue color in fireworks — famously the hardest color to get right?",
-    options: ["Copper", "Calcium", "Iron", "Zinc"],
-    correct: 0,
-    fact: "Blue is notoriously unstable to produce, which is why good blue fireworks are a pyrotechnician's pride."
-  },
-  {
-    category: "Aussie Roast",
-    question: "In Australia, which side of the road do they drive on?",
-    options: ["Left", "Right", "Middle", "Whichever's less crowded"],
-    correct: 0,
-    fact: "Left-hand side, just like their old colonial landlord. America picked the right side — because of course we did."
+    narration: "Now for some fireworks chemistry, partner. Which metal salt gives fireworks their brilliant red color? A, barium... B, sodium... C, strontium... or D, copper?",
+    fact: "The same chemistry used in road flares."
   },
   {
     category: "Geography",
-    question: "Which U.S. city is home to the largest fireworks display in the country every July 4th (Macy's)?",
-    options: ["Chicago", "New York City", "Los Angeles", "Washington, D.C."],
-    correct: 1,
-    fact: "Macy's fireworks over the East River regularly launch tens of thousands of shells."
-  },
-  {
-    category: "Food",
-    question: "According to the National Hot Dog and Sausage Council, about how many hot dogs do Americans eat on July 4th alone?",
-    options: ["15 million", "50 million", "150 million", "500 million"],
+    question: "Which U.S. state has the longest coastline of any state, including tidal shoreline?",
+    options: ["California", "Florida", "Alaska", "Louisiana"],
     correct: 2,
-    fact: "150 million hot dogs — enough to stretch from D.C. to L.A. more than five times."
-  },
-  {
-    category: "Sports",
-    question: "Which sport is traditionally nicknamed 'America's pastime'?",
-    options: ["Basketball", "Football", "Baseball", "Hockey"],
-    correct: 2,
-    fact: "Baseball has carried that nickname since the 1800s, well before the NFL even existed."
+    narration: "Here's one that trips folks up every time. Which U.S. state has the longest coastline of any state, tidal shoreline and all? A, California... B, Florida... C, Alaska... or D, Louisiana?",
+    fact: "Alaska's jagged coastline runs over 30,000 miles — dwarfing Florida's roughly 8,400."
   },
   {
     category: "Aussie Roast",
-    question: "What do Australians call a backyard grill — and the whole event around it?",
-    options: ["A barbie", "An esky", "A ute", "A bloke"],
-    correct: 0,
-    fact: "Aussies 'chuck a snag on the barbie' — Americans just call it Tuesday."
-  },
-  {
-    category: "Symbols",
-    question: "The Statue of Liberty was a gift to the United States from which country?",
-    options: ["Spain", "France", "United Kingdom", "Netherlands"],
-    correct: 1,
-    fact: "Dedicated in 1886, it was a gift celebrating the American Revolution and Franco-American friendship."
-  },
-  {
-    category: "Symbols",
-    question: "The date on the tablet held by the Statue of Liberty, written in Roman numerals, marks what?",
-    options: ["The date of French independence", "July 4, 1776", "The statue's dedication date", "The end of the Civil War"],
-    correct: 1,
-    fact: "It reads 'JULY IV MDCCLXXVI' — July 4, 1776."
+    question: "In which year did the Australia Act finally end the UK Parliament's ability to legislate for Australia?",
+    options: ["1901", "1942", "1986", "1999"],
+    correct: 2,
+    narration: "Last trip down under, I promise. In which year did the Australia Act finally end the U.K. Parliament's power to legislate for Australia? A, nineteen oh-one... B, nineteen forty-two... C, nineteen eighty-six... or D, nineteen ninety-nine?",
+    fact: "Two hundred and ten years after America cut the cord."
   },
   {
     category: "Geography",
-    question: "What is the highest point in the contiguous (lower 48) United States?",
-    options: ["Denali", "Mount Whitney", "Mount Rainier", "Pikes Peak"],
-    correct: 1,
-    fact: "Mount Whitney in California tops out at 14,505 feet. Denali is taller, but it's in Alaska, so it doesn't count here."
+    question: "What is the lowest point in the contiguous United States, at 282 feet below sea level?",
+    options: ["Death Valley's Badwater Basin", "The Salton Sea", "New Orleans' 9th Ward", "Imperial Valley"],
+    correct: 0,
+    narration: "Let's head to the lowest spot in the country. What is the lowest point in the contiguous United States, sitting two hundred eighty-two feet below sea level? A, Death Valley's Badwater Basin... B, the Salton Sea... C, New Orleans' Ninth Ward... or D, the Imperial Valley?",
+    fact: "It's also one of the hottest places on Earth — extremes in both directions."
   },
   {
     category: "Geography",
     question: "Which state was the last of the 50 to join the Union?",
     options: ["Alaska", "Hawaii", "Arizona", "New Mexico"],
     correct: 1,
+    narration: "Almost home, partner. Which state was the last of the fifty to join the Union? A, Alaska... B, Hawaii... C, Arizona... or D, New Mexico?",
     fact: "Alaska joined in January 1959; Hawaii followed that August as the 50th state."
   },
   {
-    category: "Pop Culture",
-    question: "Which classic American muscle car shares its name with a wild horse?",
-    options: ["Chevy Camaro", "Dodge Charger", "Ford Mustang", "Pontiac Firebird"],
+    category: "Food",
+    question: "The winner of Nathan's Famous Hot Dog Eating Contest, held every July 4th at Coney Island, is awarded what?",
+    options: ["A golden hot dog trophy", "The Mustard Belt", "A lifetime supply of hot dogs", "The Coney Island Cup"],
+    correct: 1,
+    narration: "Now for the important stuff, folks — food, and glory. The winner of Nathan's Famous Hot Dog Eating Contest, held every Fourth of July at Coney Island, is awarded what? A, a golden hot dog trophy... B, the Mustard Belt... C, a lifetime supply of hot dogs... or D, the Coney Island Cup?",
+    fact: "An actual yellow championship belt, styled like a boxing title belt, mustard-colored and everything."
+  },
+  {
+    category: "Food",
+    question: "According to the National Hot Dog and Sausage Council, about how many hot dogs do Americans eat on July 4th alone?",
+    options: ["15 million", "50 million", "150 million", "500 million"],
     correct: 2,
-    fact: "The Mustang debuted in 1964 and became one of the best-selling American cars ever."
+    narration: "Sticking with the important stuff. According to the National Hot Dog and Sausage Council, about how many hot dogs do Americans eat on July fourth alone? A, fifteen million... B, fifty million... C, a hundred fifty million... or D, five hundred million?",
+    fact: "That's enough to stretch from D.C. to L.A. more than five times."
+  },
+  {
+    category: "Symbols",
+    question: "The Statue of Liberty was a gift to the United States from which country?",
+    options: ["Spain", "France", "United Kingdom", "Netherlands"],
+    correct: 1,
+    narration: "Let's talk landmarks, partner. The Statue of Liberty was a gift to the United States from which country? A, Spain... B, France... C, the United Kingdom... or D, the Netherlands?",
+    fact: "Dedicated in 1886, it celebrated the American Revolution and Franco-American friendship."
+  },
+  {
+    category: "Pop Culture",
+    question: "Which painter created the iconic patriotic image 'The Spirit of '76,' originally titled 'Yankee Doodle'?",
+    options: ["Norman Rockwell", "Archibald Willard", "Grant Wood", "Emanuel Leutze"],
+    correct: 1,
+    narration: "Last one, and it's a classic. Which painter created the iconic patriotic image The Spirit of Seventy-Six, originally titled Yankee Doodle? A, Norman Rockwell... B, Archibald Willard... C, Grant Wood... or D, Emanuel Leutze?",
+    fact: "It debuted at the 1876 Centennial Exposition and has been parodied endlessly ever since."
   }
 ];
