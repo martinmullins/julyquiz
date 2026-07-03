@@ -113,6 +113,51 @@
     window.speechSynthesis.speak(utter);
   }
 
+  // ---------- Eagle transition ----------
+  let audioCtx = null;
+
+  function playScreech() {
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(2600, now);
+      osc.frequency.exponentialRampToValueAtTime(900, now + 0.35);
+      osc.frequency.exponentialRampToValueAtTime(1800, now + 0.5);
+      osc.frequency.exponentialRampToValueAtTime(700, now + 0.75);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.8);
+    } catch (e) {
+      // Web Audio unsupported or blocked — the visual transition still plays fine without it.
+    }
+  }
+
+  const eagleOverlay = document.getElementById("eagle-transition");
+
+  function playEagleTransition(callback) {
+    eagleOverlay.classList.remove("hidden");
+    // Force reflow so the animation restarts every time the class is re-added.
+    void eagleOverlay.offsetWidth;
+    eagleOverlay.classList.add("active");
+    playScreech();
+
+    setTimeout(() => {
+      eagleOverlay.classList.remove("active");
+      eagleOverlay.classList.add("hidden");
+      callback();
+    }, 1100);
+  }
+
   document.getElementById("btn-test-voice").addEventListener("click", () => {
     speak("Well now, welcome to the Fourth of July Quiz Showdown, partner. Let's see if y'all know your American history, or if you're all hat and no cattle.");
   });
@@ -203,12 +248,16 @@
   });
 
   nextBtn.addEventListener("click", () => {
-    state.idx++;
-    if (state.idx >= state.order.length) {
-      showResults();
-    } else {
-      renderQuestion();
-    }
+    nextBtn.disabled = true;
+    playEagleTransition(() => {
+      nextBtn.disabled = false;
+      state.idx++;
+      if (state.idx >= state.order.length) {
+        showResults();
+      } else {
+        renderQuestion();
+      }
+    });
   });
 
   function showResults() {
