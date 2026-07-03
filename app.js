@@ -60,51 +60,6 @@
     return `q${String(arrayIndex + 1).padStart(2, "0")}.mp3`;
   }
 
-  // ---------- Eagle transition ----------
-  let audioCtx = null;
-
-  function playScreech() {
-    try {
-      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === "suspended") audioCtx.resume();
-
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(2600, now);
-      osc.frequency.exponentialRampToValueAtTime(900, now + 0.35);
-      osc.frequency.exponentialRampToValueAtTime(1800, now + 0.5);
-      osc.frequency.exponentialRampToValueAtTime(700, now + 0.75);
-
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
-
-      osc.connect(gain).connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.8);
-    } catch (e) {
-      // Web Audio unsupported or blocked — the visual transition still plays fine without it.
-    }
-  }
-
-  const eagleOverlay = document.getElementById("eagle-transition");
-
-  function playEagleTransition(callback) {
-    eagleOverlay.classList.remove("hidden");
-    // Force reflow so the animation restarts every time the class is re-added.
-    void eagleOverlay.offsetWidth;
-    eagleOverlay.classList.add("active");
-    playScreech();
-
-    setTimeout(() => {
-      eagleOverlay.classList.remove("active");
-      eagleOverlay.classList.add("hidden");
-      callback();
-    }, 1100);
-  }
-
   document.getElementById("btn-test-voice").addEventListener("click", () => {
     playClip("intro.mp3");
   });
